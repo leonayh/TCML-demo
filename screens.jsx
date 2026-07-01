@@ -175,7 +175,6 @@ function HeroFlow({ home }) {
 
   return (
     <div className="page fade-enter">
-      <button className="backbtn" onClick={() => setStep('name')}><Icon name="back" /></button>
       <div className="scroll-area">
         <div style={{ position: 'relative', background: 'linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)), var(--bg)' }}>
           <div className="blob blob-hero" style={{ opacity: .5 }}></div>
@@ -336,7 +335,7 @@ function ReceiveFlow({ home, goSend }) {
             You've got a <span style={{ backgroundImage: 'linear-gradient(108.57deg, #FF9F37 8.43%, #955AFF 92.28%)',
             WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', color: 'transparent' }}>postcard</span>!
           </div>
-          <div className="flow-foot">
+          <div className="flow-foot" style={{ bottom: 130 }}>
             <button className="btn btn-primary btn-lg" onClick={open}>
               Open <Icon name="arrow" className="ar" style={{ width: 18, height: 18 }} /></button>
           </div>

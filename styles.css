@@ -38,9 +38,8 @@ body{
   position:relative;
   width:400px;height:812px;
   background:var(--bg);
-  border-radius:38px;
+  border-radius:0;
   overflow:hidden;
-  box-shadow:0 40px 80px -20px rgba(0,0,0,.55), 0 8px 24px rgba(0,0,0,.3);
 }
 
 /* decorative background layers */
