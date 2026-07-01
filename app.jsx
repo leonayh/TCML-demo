@@ -13,7 +13,7 @@ function App(){
       {route==='home'    && <Home go={go}/>}
       {route==='hero'    && <HeroFlow home={home}/>}
       {route==='send'    && <SendFlow home={home}/>}
-      {route==='receive' && <ReceiveFlow home={home} goSend={()=>{location.href='寄信互動.html'+location.search;}}/>}
+      {route==='receive' && <ReceiveFlow home={home} goSend={()=>{location.href='4.Send-Postcard.html'+location.search;}}/>}
     </div>
   );
 }

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Summer 2026 Courses · TCML</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --tcml-orange:#E89A3D; --tcml-orange-strong:#E07A10; --tcml-orange-ink:#BB6907;
+  --tcml-green:#4A9C87; --tcml-green-ink:#176D30;
+  --tcml-purple:#A98ADE; --tcml-purple-ink:#6E4FB0;
+  --tcml-blue:#579AE3; --tcml-blue-ink:#2C6FB8;
+  --cream:#F5F4F1; --paper:#fff; --ink:#161313; --gray:#676562; --gray-soft:#95938F; --hairline:#E6E2DB;
+  --tint-orange:rgba(232,154,61,.16); --tint-green:rgba(74,156,135,.15);
+  --tint-blue:rgba(87,154,227,.16); --tint-purple:rgba(169,138,222,.18);
+  --highlight:#E4EBE7;
+  --r-md:12px; --r-lg:18px; --r-xl:28px; --r-pill:999px;
+  --sh-sm:0 2px 8px rgba(22,19,19,.05); --sh-md:0 8px 24px rgba(22,19,19,.07);
+  --sh-lg:0 18px 48px rgba(22,19,19,.10); --sh-pill:0 4px 14px rgba(22,19,19,.06);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --fdisp:'Montserrat','Noto Sans TC',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --fui:'Outfit','Noto Sans TC',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+html,body{margin:0;}
+body{background:#2a2826;font-family:var(--fui);color:var(--ink);}
+.app{width:100%;max-width:400px;margin:0 auto;background:var(--cream);min-height:100vh;position:relative;overflow:hidden;}
+/* decorative frame lines (#4A9C87 @20%) */
+.frame{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.frame .fh{position:absolute;left:0;right:0;top:80px;border-top:1px solid rgba(74,156,135,.2);}
+.frame .fl{position:absolute;top:0;bottom:0;left:12px;border-left:1px solid rgba(74,156,135,.2);}
+.frame .fr{position:absolute;top:0;bottom:0;right:12px;border-right:1px solid rgba(74,156,135,.2);}
+
+/* ---- header ---- */
+.appbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+  padding:16px 18px;background:linear-gradient(180deg,var(--cream) 70%,rgba(245,244,241,0));}
+.logo{width:108px;height:32px;background:url(assets/tcml-logo.png) left center/contain no-repeat;}
+.appbar-actions{display:flex;gap:10px;}
+.iconbtn{width:46px;height:46px;border-radius:var(--r-pill);border:none;cursor:pointer;display:flex;
+  align-items:center;justify-content:center;transition:transform .18s var(--ease),box-shadow .18s,background .18s;}
+.iconbtn.ghost{background:var(--paper);box-shadow:var(--sh-sm);color:var(--ink);}
+.iconbtn.brand{background:var(--tcml-orange);color:#fff;}
+.iconbtn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(82,55,23,.22);}
+.iconbtn:active{transform:scale(.93);}
+.iconbtn svg{width:20px;height:20px;}
+
+/* ---- post head ---- */
+.post-head{padding:26px 24px 24px;}
+.post-title{font-family:var(--fdisp);font-weight:400;font-size:40px;line-height:1.16;margin:0;letter-spacing:-.5px;}
+.post-meta{display:flex;align-items:center;gap:14px;margin-top:24px;}
+.chip{font-family:var(--fui);font-weight:400;font-size:16px;padding:9px 18px;border-radius:var(--r-pill);
+  background:var(--tint-purple);color:var(--tcml-purple-ink);white-space:nowrap;}
+.post-date{font-family:var(--fui);font-weight:400;font-size:16px;color:var(--gray);}
+.rule{height:1px;background:var(--hairline);}
+
+/* ---- article ---- */
+.post-body{padding:30px 24px 34px;display:flex;flex-direction:column;}
+.callout{display:flex;gap:14px;align-items:flex-start;}
+.callout-ic{flex:0 0 auto;width:42px;height:42px;margin-top:2px;
+  background:url(assets/digua.png) center/contain no-repeat;}
+.callout-h{font-family:var(--fdisp);font-weight:400;font-size:23px;line-height:1.5;margin:0;color:var(--ink);}
+.hl{background:var(--highlight);padding:2px 5px;border-radius:3px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;}
+.para{font-family:var(--fui);font-weight:300;font-size:18px;line-height:1.62;color:var(--gray);margin:24px 0 0;}
+.callout + .callout, .para + .callout{margin-top:34px;}
+
+/* video player */
+.video{margin-top:26px;position:relative;width:100%;height:432px;border-radius:18px;overflow:hidden;
+  background:#0c0c0d center/contain no-repeat;cursor:pointer;}
+.video-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:74px;height:74px;
+  border:none;border-radius:50%;background:rgba(255,255,255,.22);backdrop-filter:blur(4px);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.35);transition:transform .2s var(--ease),background .2s;}
+.video-play::before{content:"";width:0;height:0;margin-left:5px;
+  border-left:22px solid #fff;border-top:14px solid transparent;border-bottom:14px solid transparent;}
+.video:hover .video-play{transform:translate(-50%,-50%) scale(1.08);background:rgba(255,255,255,.34);}
+.video.playing .video-play{opacity:0;pointer-events:none;}
+/* portrait player for vertical reel — centered, no wide black bars */
+.video.playing{height:auto;aspect-ratio:9/16;max-width:384px;margin-left:auto;margin-right:auto;background:#0c0c0d;}
+
+/* CTA */
+.cta{margin-top:26px;width:100%;border:none;cursor:pointer;border-radius:var(--r-xl);background:var(--tcml-orange);
+  color:#fff;display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left;
+  padding:22px 26px;font-family:var(--fui);font-weight:400;font-size:21px;line-height:1.3;
+  box-shadow:0 12px 26px -10px rgba(232,154,61,.7);
+  transition:transform .18s var(--ease),box-shadow .18s,background .18s;}
+.cta:hover{transform:translateY(-2px);background:#ef9a3a;box-shadow:0 18px 34px -12px rgba(232,154,61,.85);}
+.cta:active{transform:scale(.99);}
+.cta svg{flex:0 0 auto;width:22px;height:22px;}
+.cta:hover svg{animation:nudge .5s var(--ease);}
+@keyframes nudge{50%{transform:translateX(4px);}}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(20px);}
+.reveal.in{opacity:1;transform:none;transition:opacity .6s var(--ease),transform .6s var(--ease);}
+
+/* ---- footer ---- */
+.footer{background:var(--cream);padding:34px 24px 40px;border-top:1px solid var(--hairline);}
+.ext-btns{display:flex;flex-wrap:wrap;gap:14px;}
+.ext{height:66px;border:none;cursor:pointer;border-radius:var(--r-pill);display:flex;align-items:center;
+  justify-content:space-between;padding:0 26px;font-family:var(--fui);font-weight:400;font-size:21px;color:#fff;
+  text-decoration:none;transition:transform .18s var(--ease),box-shadow .18s,filter .18s;}
+.ext:hover{transform:translateY(-2px);filter:brightness(1.05);box-shadow:0 12px 26px -10px rgba(0,0,0,.3);}
+.ext:active{transform:scale(.99);}
+.ext svg{width:20px;height:20px;}
+.ext.half{flex:1;min-width:130px;padding:0 22px;}
+.ext.full{flex-basis:100%;}
+.ext.purple{background:var(--tcml-purple);} .ext.green{background:var(--tcml-green);} .ext.blue{background:var(--tcml-blue);}
+
+.foot-div{height:1px;background:var(--hairline);margin:28px 0;}
+.foot-brand{display:flex;align-items:center;justify-content:space-between;}
+.foot-brand .logo{width:150px;height:42px;}
+.socials{display:flex;gap:12px;}
+.social{width:48px;height:48px;border-radius:var(--r-pill);border:1px solid var(--hairline);background:var(--paper);
+  display:flex;align-items:center;justify-content:center;color:var(--ink);cursor:pointer;
+  transition:transform .18s var(--ease),color .18s,border-color .18s;}
+.social:hover{transform:translateY(-2px);color:var(--tcml-orange);border-color:var(--tcml-orange);}
+.social svg{width:18px;height:18px;}
+.foot-text{font-family:var(--fui);font-weight:300;font-size:16px;line-height:1.55;color:var(--gray);margin:22px 0 0;}
+.foot-addr{font-family:var(--fui);font-weight:300;font-size:16px;line-height:1.55;color:var(--gray);margin:18px 0 0;}
+.foot-copy{font-family:var(--fui);font-weight:400;font-size:15px;line-height:1.5;color:var(--tcml-green-ink);margin:0;}
+.foot-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;}
+.foot-links a{font-family:var(--fui);font-size:15px;color:var(--tcml-green-ink);text-decoration:underline;
+  text-underline-offset:3px;transition:color .15s;}
+.foot-links a:hover{color:var(--tcml-green);}
+
+/* back-to-demo bar */
+#backtint{position:fixed;inset:0;background:rgba(0,0,0,.05);opacity:0;pointer-events:none;z-index:60;}
+#backbar{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;padding:18px 24px;
+  z-index:61;opacity:0;transform:translateY(14px);pointer-events:none;}
+#backbar.show{opacity:1;transform:none;pointer-events:auto;}
+#backtint.show{opacity:1;}
+.navbar-inner{display:flex;align-items:stretch;gap:8px;width:100%;max-width:392px;background:var(--paper);border-radius:16px;padding:8px;box-shadow:0 16px 34px -18px rgba(61,27,54,.5);}
+.navbtn{display:flex;align-items:center;justify-content:center;gap:9px;height:54px;border-radius:11px;text-decoration:none;font-family:var(--fui);font-size:16px;cursor:pointer;border:none;transition:transform .15s var(--ease),background .18s,color .18s,box-shadow .18s;}
+.navbtn svg{width:18px;height:18px;flex:0 0 auto;}
+.navbtn.back{flex:0 0 auto;padding:0 18px;background:var(--cream);color:var(--ink);}
+.navbtn.back:hover{background:#ece9e3;}
+.navbtn.next{flex:1;background:var(--ink);color:#fff;padding:0 20px;justify-content:space-between;box-shadow:0 10px 22px -10px rgba(22,19,19,.55);}
+.navbtn.next:hover{transform:translateY(-1px);background:#000;}
+.navbtn.next .np{display:flex;flex-direction:column;align-items:flex-start;line-height:1.12;}
+.navbtn.next .np .k{font-family:var(--fui);font-weight:300;font-size:11px;letter-spacing:1px;opacity:.85;}
+.navbtn.next .np .v{font-family:var(--fdisp);font-weight:400;font-size:17px;}
+.backcard{display:flex;align-items:center;gap:14px;width:100%;max-width:392px;background:var(--paper);
+  border-radius:18px;padding:13px 16px;text-decoration:none;box-shadow:0 16px 34px -18px rgba(61,27,54,.5);
+  transition:transform .18s var(--ease),box-shadow .18s;}
+.backcard:hover{transform:translateY(-2px);box-shadow:0 22px 40px -18px rgba(61,27,54,.6);}
+.backcard .bc-ic{flex:0 0 auto;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;background:var(--tint-orange);color:var(--tcml-orange);}
+.backcard .bc-ic svg{width:18px;height:18px;}
+.backcard .bc-t{font-family:var(--fdisp);font-weight:400;font-size:15px;color:var(--ink);}
+.backcard .bc-s{font-family:var(--fui);font-weight:300;font-size:12px;color:var(--gray);margin:0 6px;}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;}
+  #backbar,#backtint{transition:none;}
+}
+@media (prefers-reduced-motion: no-preference){
+  #backbar,#backtint{transition:opacity .35s ease,transform .35s ease;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="frame" aria-hidden="true"><span class="fh"></span><span class="fl"></span><span class="fr"></span></div>
+  <!-- header -->
+  <header class="appbar">
+    <div class="logo"></div>
+    <div class="appbar-actions">
+      <button class="iconbtn ghost" aria-label="Language"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg></button>
+      <button class="iconbtn brand" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </header>
+
+  <!-- post head -->
+  <div class="post-head">
+    <h1 class="post-title">Enroll now for the Summer 2026 Courses!</h1>
+    <div class="post-meta">
+      <span class="chip">#Cultural Event</span>
+      <span class="post-date">May 04, 2026</span>
+    </div>
+  </div>
+  <div class="rule"></div>
+
+  <!-- article -->
+  <article class="post-body">
+    <div class="callout reveal">
+      <span class="callout-ic"></span>
+      <h2 class="callout-h"><span class="hl">Mandarin, Taiwanese Culture, and Summer Fun in New York City!</span></h2>
+    </div>
+
+    <p class="para reveal">Looking for a fun and meaningful way to learn Mandarin this summer while exploring Taiwanese culture? 🌿✨ TCML-New York Taiwan Center is excited to launch its 2026 Summer Program, featuring practical Mandarin courses and hands-on Taiwanese cultural workshops. From Taiwanese food and tea culture to indigo dyeing and night market games, this summer's programs invite students and community members to experience Taiwan through language, creativity, and connection.</p>
+
+    <div class="callout reveal">
+      <span class="callout-ic"></span>
+      <h2 class="callout-h"><span class="hl">Not all Taiwanese food is an "adventure." These are the dishes that expats in Taiwan actually CRAVE</span></h2>
+    </div>
+
+    <div class="video reveal" id="video" style="background-image:url('assets/video-poster.jpg')">
+      <button class="video-play" aria-label="Play video"></button>
+    </div>
+
+    <button class="cta reveal">Sign up for TCML Summer Courses now!
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </article>
+  <div class="rule"></div>
+
+  <!-- footer -->
+  <footer class="footer">
+    <div class="ext-btns">
+      <a class="ext half purple" href="#">OCAC <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="ext half green" href="#">About Us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="ext full blue" href="#">HuayuWorld.org <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="foot-div"></div>
+    <div class="foot-brand">
+      <div class="logo"></div>
+      <div class="socials">
+        <span class="social" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2H21l-6.4 7.3L22 22h-6.3l-4.9-6.4L5.1 22H2.3l6.9-7.9L2 2h6.5l4.4 5.8L18.2 2Zm-1.1 18h1.5L7 3.9H5.4L17.1 20Z"/></svg></span>
+        <span class="social" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+        <span class="social" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V7c0-.8.5-1 .9-1H17V3h-2.6C11.5 3 11 5 11 6.6v1.9H9V11h2v10h3v-10h2.2l.4-2.5H14Z"/></svg></span>
+      </div>
+    </div>
+    <p class="foot-text">Taiwan Center for Mandarin Learning (TCML) is a project sponsored by the Overseas Community Affairs Council to promote Mandarin learning.</p>
+    <p class="foot-addr">3, 15—17F, No. 5, Xuzhou Road, Zhongzheng District, Taipei City, 100218, Taiwan</p>
+    <div class="foot-div"></div>
+    <p class="foot-copy">© 2026 Taiwan Center for Mandarin Learning.<br>All rights reserved.</p>
+    <div class="foot-links">
+      <a href="#">Sitemap</a><a href="#">Privacy Policy</a><a href="#">Cookies Policy</a><a href="#">Terms of Service</a>
+    </div>
+  </footer>
+</div>
+
+<!-- back to demo -->
+<div id="backtint"></div>
+<div id="backbar">
+  <div class="navbar-inner">
+    <a class="navbtn back" href="index.html" aria-label="回到示範主頁"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7M5 10v9h14v-9"/></svg>回主頁</a>
+    <a class="navbtn next" href="index.html?go=hero"><span class="np"><span class="k">下一頁</span><span class="v">加值方案</span></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</div>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#E89A3D"/><path d="M38 32v36l30-18z" fill="#fff"/></svg>
+</template>
+
+<script>
+// reveal on scroll
+const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reveals=document.querySelectorAll('.reveal');
+if(!reduce&&'IntersectionObserver' in window){
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px'});
+  reveals.forEach((c,i)=>{c.style.transitionDelay=(Math.min(i,5)*50)+'ms';io.observe(c);});
+}else{ reveals.forEach(c=>c.classList.add('in')); }
+
+// video play — native player (no social frame). Drop your MP4 at assets/reel.mp4
+const video=document.getElementById('video');
+const VIDEO_SRC='assets/reel.mp4';
+video.addEventListener('click',()=>{
+  if(video.classList.contains('playing')) return;   // already playing
+  video.classList.add('playing');
+  const el=document.createElement('video');
+  el.src=VIDEO_SRC;
+  el.controls=true;
+  el.autoplay=true;
+  el.playsInline=true;
+  el.setAttribute('poster','assets/video-poster.jpg');
+  el.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#0c0c0d;';
+  video.appendChild(el);
+  el.play&&el.play().catch(()=>{});
+});
+
+// preserve preview token on cross-page links
+document.querySelectorAll('a[href$=".html"]').forEach(a=>{
+  const h=a.getAttribute('href');
+  if(h && !/^https?:/.test(h)) a.href=h+location.search;
+});
+
+// back-to-demo bar at page bottom
+const bar=document.getElementById('backbar'), tint=document.getElementById('backtint');
+function onScroll(){
+  const down=window.scrollY>80;
+  bar.classList.toggle('show',down); tint.classList.remove('show');
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('resize',onScroll); onScroll();
+</script>
+</body>
+</html>

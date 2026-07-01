@@ -47,13 +47,13 @@ function DemoNav({ onHome, nextHref, nextLabel }) {
 /* ================= HOME LAUNCHER ================= */
 function Home({ go }) {
   const exp = [
-  { id: 'hero', ext: '符號探索.html', sprite: 'zhenNai', tag: '加值服務一', zh: '探索你的台灣符號', en: 'Discover Your Taiwan Symbol' },
-  { id: 'send', k: 'postbox', ext: '寄信互動.html', tag: '加值服務二', zh: '寄出你的台灣問候明信片', en: 'Send A Taiwan Hello' }];
+  { id: 'hero', ext: '5.Symbol-Explorer.html', sprite: 'zhenNai', tag: '加值服務一', zh: '探索你的台灣符號', en: 'Discover Your Taiwan Symbol' },
+  { id: 'send', k: 'postbox', ext: '4.Send-Postcard.html', tag: '加值服務二', zh: '寄出你的台灣問候明信片', en: 'Send A Taiwan Hello' }];
 
   const pages = [
-  { ext: '1.首頁.html', icon: 'home', zh: 'TCML 網站首頁', en: 'Homepage' },
-  { id: 'finder', ext: '2.據點查找頁.html', icon: 'map', zh: '據點查找頁', en: 'Find A Center' },
-  { id: 'upload', ext: '3.影音上稿示範頁.html', icon: 'video', zh: '影音上稿示範頁', en: 'Video Demo' }];
+  { ext: '1.Home.html', icon: 'home', zh: 'TCML 網站首頁', en: 'Homepage' },
+  { id: 'finder', ext: '2.Center-Finder.html', icon: 'map', zh: '據點查找頁', en: 'Find A Center' },
+  { id: 'upload', ext: '3.Video-Upload.html', icon: 'video', zh: '影音上稿示範頁', en: 'Video Demo' }];
 
   const renderRow = (it, i, base, cls = '') => {
     const chip = it.icon ?
@@ -159,7 +159,7 @@ function HeroFlow({ home }) {
               cover.style.cssText = 'position:fixed;inset:0;background:#F5F4F1;opacity:0;transition:opacity .35s ease;z-index:9999;';
               document.body.appendChild(cover);
               requestAnimationFrame(() => { cover.style.opacity = '1'; });
-              setTimeout(() => { location.href = '1.首頁.html#fadein'; }, 360);
+              setTimeout(() => { location.href = '1.Home.html#fadein'; }, 360);
             }}>Back</div>
           </div>
         </div>
@@ -211,7 +211,7 @@ function HeroFlow({ home }) {
               <Icon name="arrow" className="ar" style={{ width: 16, height: 16 }} />
             </button>
           </div>
-          <DemoNav onHome={home} nextHref={'寄信互動.html' + location.search} nextLabel="寄出明信片" />
+          <DemoNav onHome={home} nextHref={'4.Send-Postcard.html' + location.search} nextLabel="寄出明信片" />
         </div>
       </div>
     </div>);
@@ -309,10 +309,16 @@ function SendFlow({ home, startStep = 'intro', incoming }) {
 function ReceiveFlow({ home, goSend }) {
   const [step, setStep] = useState('intro'); // intro | decoding | reveal
   const [flip, setFlip] = useState(false);
+  const [pc, setPc] = useState(null);
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    try { const s = localStorage.getItem('tcml_postcard'); if (s) setPc(JSON.parse(s)); } catch (e) {}
+  }, []);
 
   function open() {
     setStep('decoding');
-    setTimeout(() => {setStep('reveal');setTimeout(() => setFlip(true), 1300);}, 2300);
+    setTimeout(() => {setStep('reveal');setTimeout(() => { setFlip(true); setTimeout(() => setDone(true), 1600); }, 1300);}, 2300);
   }
 
   return (
@@ -346,23 +352,33 @@ function ReceiveFlow({ home, goSend }) {
           'Your postcard reveals...'}
           </div>
           <Postcard style={{ position: 'absolute', top: 230, left: 35 }}
-        receiver="Tinz" sender="Lyn"
-        emoji={<span>🧋 🥟 🏮 👜</span>}
-        message="Greetings from Taiwan! Learning Mandarin now — miss you! 🧋"
+        receiver={pc ? (pc.receiver || 'A friend') : 'Tinz'} sender={pc ? (pc.sender || 'You') : 'Lyn'}
+        emoji={pc && pc.frontHTML ? <span dangerouslySetInnerHTML={{ __html: pc.frontHTML }} /> : <span>🧋 🥟 🏮 👜</span>}
+        message={pc && pc.message ? pc.message : "Greetings from Taiwan! Learning Mandarin now — miss you! 🧋"}
         decoding={step === 'decoding'} flip={step === 'reveal' && flip} />
 
           {step === 'reveal' &&
         <div className="flow-foot rise" style={{ animationDelay: '.5s' }}>
               <button className="btn btn-primary btn-lg" onClick={goSend}>
                 Send a Postcard Back <Icon name="send" style={{ width: 18, height: 18 }} /></button>
-              <button className="btn btn-ghost btn-lg" onClick={() => {location.href = '3.影音上稿示範頁.html' + location.search;}}>
+              <button className="btn btn-ghost btn-lg" onClick={() => {location.href = '3.Video-Upload.html' + location.search;}}>
                 Explore Taiwan's Culture <Icon name="arrow" className="ar" style={{ width: 18, height: 18 }} /></button>
-              <button className="btn btn-ghost btn-lg" onClick={() => {location.href = '2.據點查找頁.html' + location.search;}}>
+              <button className="btn btn-ghost btn-lg" onClick={() => {location.href = '2.Center-Finder.html' + location.search;}}>
                 Find a Learning Center <Icon name="map" style={{ width: 18, height: 18 }} /></button>
             </div>
         }
         </div>
       }
+
+      <div className={"dm-overlay" + (done ? ' on' : '')}>
+        <div className="dm-card">
+          <div className="dm-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12l5 5L20 6" /></svg>
+          </div>
+          <div className="dm-title">以上為明信片完整流程</div>
+          <button className="dm-btn" onClick={home}>回主頁</button>
+        </div>
+      </div>
     </div>);
 
 }
